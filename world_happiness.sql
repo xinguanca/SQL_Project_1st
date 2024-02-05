@@ -78,7 +78,7 @@ select
 from 2015_t
 order by `health_(life_expectancy)` desc;
 
--- 8. figure out whether GDP is the main factor of happiness and life expectancy.
+-- 8.figure out whether GDP is the main factor of happiness and life expectancy.
 select
 	country,
 	happiness_score,
@@ -87,38 +87,19 @@ select
 from 2015_t
 order by `economy_(gdp_per_capita)` desc;
 
--- 9.figure out 
+-- 9.figure out which country has ranked up from previous year
 with t as (
 	select
 		a.country,
--- 		e.happiness_rank as rank_2019,
--- 		d.happiness_rank as rank_2018,
-		c.happiness_rank as rank_2017,
 		b.happiness_rank as rank_2016,
 		a.happiness_rank as rank_2015
 	from 2015_t a
 	left join 2016_t b
 		on b.country = a.country
-	left join 2017_t c
-		on c.country = b.country
--- 	left join 2018_t d
--- 		on d.country = a.country
--- 	left join 2019_t e
--- 		on e.country = a.country
 )
 select * from t
 where
-	rank_2016 < rank_2015
-or
-	rank_2017 < rank_2016;
--- or
--- 	rank_2018 < rank_2017
--- or
--- 	rank_2019 < rank_2018;
-
-
-
-
+	rank_2016 < rank_2015;
 
 
 
